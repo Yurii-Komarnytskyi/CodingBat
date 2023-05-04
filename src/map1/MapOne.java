@@ -63,11 +63,7 @@ public class MapOne {
 
 
 	public static void main(String[] args) {
-		MapOne mo = new MapOne();
-		Map<String, String> ugleyMap = new HashMap<>();
-		ugleyMap.put("dick", "sucking");
-		ugleyMap.put("cunt", "licking");
-		System.out.println(mo.topping1(ugleyMap));
+
 	}
 
 }
