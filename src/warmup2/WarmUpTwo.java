@@ -1,6 +1,5 @@
 package warmup2;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class WarmUpTwo {
@@ -148,42 +147,6 @@ public class WarmUpTwo {
 		System.out.println(warmUp.has271(t)); 
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
 
