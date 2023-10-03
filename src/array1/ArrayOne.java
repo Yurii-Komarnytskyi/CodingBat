@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
+
 
 public class ArrayOne {
 	public boolean firstLast6(int[] nums) {
@@ -190,8 +190,7 @@ public class ArrayOne {
 		if(b.length > 0 ) result.add(b[0]);
 		return result.stream().mapToInt(Integer::intValue).toArray();
 	}
-
-
+	
 
 	public static void main(String[] args) {
 		ArrayOne ao = new ArrayOne();
