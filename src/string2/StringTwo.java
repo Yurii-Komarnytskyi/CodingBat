@@ -5,8 +5,6 @@ import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import utils.Helper;
-
 public class StringTwo {
 
 	public String doubleChar(String str) {
@@ -244,11 +242,7 @@ public class StringTwo {
 
 	public static void main(String[] args) {
 		StringTwo st = new StringTwo();
-		Helper.addBreakLine();
 		System.out.println(st.wordEnds("abc1xyz1i1j", "1"));
-		Helper.addBreakLine();
-		Helper.displayStrByIndices("abc1xyz1i1j");
-
 	}
 
 }
