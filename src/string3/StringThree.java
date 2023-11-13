@@ -1,8 +1,5 @@
 package string3;
 
-import java.util.*;
-import java.util.function.*;
-
 public class StringThree {
 
 	public int countYZ(String str) {
@@ -89,7 +86,6 @@ public class StringThree {
 		StringBuilder currentTriple = new StringBuilder();
 		for (int i = 0; i <= str.length(); i++) {
 			String currentLetter = lettersWithPadding[i];
-			boolean gotTripleAtTheEnd = true;
 			if (currentLetter.equals(lettersWithPadding[i + 1]) || currentTriple.indexOf(currentLetter) != -1) {
 				currentTriple.append(currentLetter);
 			} else {
@@ -115,59 +111,61 @@ public class StringThree {
 	}
 
 	public String sameEnds(String string) {
-		if(string.length() < 2) {
+		if (string.length() < 2) {
 			return "";
 		}
 		StringBuilder result = new StringBuilder();
 		int stringLengthDividedByTwo = string.length() / 2;
 		String leftSideSubstring = string.substring(0, stringLengthDividedByTwo);
-		String rightSideSubstring = (string.length() % 2 == 0)? string.substring(stringLengthDividedByTwo) : string.substring(stringLengthDividedByTwo + 1);
-		for (int i = 0; i <= leftSideSubstring.length()-1; i++) {
+		String rightSideSubstring = (string.length() % 2 == 0) ? string.substring(stringLengthDividedByTwo)
+				: string.substring(stringLengthDividedByTwo + 1);
+		for (int i = 0; i <= leftSideSubstring.length() - 1; i++) {
 			result.append(leftSideSubstring.charAt(i));
 			boolean hasReachedRightSubstringEnd = rightSideSubstring.endsWith(result.toString()) && result.length() > 1;
-			if(hasReachedRightSubstringEnd) {
+			if (hasReachedRightSubstringEnd) {
 				break;
 			}
-			if(rightSideSubstring.indexOf(result.toString()) == -1) {
+			if (rightSideSubstring.indexOf(result.toString()) == -1) {
 				result.delete(0, result.length());
 				break;
 			}
 		}
 		return result.toString();
 	}
+
 	public String mirrorEnds(String string) {
 		if (string.length() <= 1) {
 			return string;
-		} else if(string.charAt(0) != string.charAt(string.length()-1)) {
+		} else if (string.charAt(0) != string.charAt(string.length() - 1)) {
 			return "";
 		}
 		StringBuilder result = new StringBuilder();
 		StringBuilder builder = new StringBuilder();
-		int stringMiddle = (string.length() % 2 == 0)? string.length() / 2 : (string.length() / 2) + 1;
-		for(int i = 0; i <= stringMiddle; i++) {
+		int stringMiddle = (string.length() % 2 == 0) ? string.length() / 2 : (string.length() / 2) + 1;
+		for (int i = 0; i <= stringMiddle; i++) {
 			builder.append(string.charAt(i));
 			boolean gotMirroringEnd = string.endsWith(builder.reverse().toString());
 			boolean gotOverlap = (i == stringMiddle) && gotMirroringEnd;
 			builder.reverse();
-			if(gotOverlap) {
+			if (gotOverlap) {
 				return string;
-			} else if(gotMirroringEnd) {
+			} else if (gotMirroringEnd) {
 				result.append(string.charAt(i));
-			} 
-		}	
+			}
+		}
 		return result.toString();
 	}
 
 	public int maxBlock(String str) {
 		int currentBlock = 1;
 		int largestBlock = 1;
-		if(str.length() == 0){
+		if (str.length() == 0) {
 			return 0;
 		}
-		for(int i = 0; i < str.length()-1; i++) {
-			if(str.charAt(i) == str.charAt(i + 1)) {
+		for (int i = 0; i < str.length() - 1; i++) {
+			if (str.charAt(i) == str.charAt(i + 1)) {
 				currentBlock++;
-				largestBlock = (currentBlock > largestBlock)? currentBlock : largestBlock;
+				largestBlock = (currentBlock > largestBlock) ? currentBlock : largestBlock;
 			} else {
 				currentBlock = 1;
 			}
@@ -179,15 +177,15 @@ public class StringThree {
 		int sum = 0;
 		final String ZERO = "0";
 		StringBuilder digitStreak = new StringBuilder(ZERO);
-		for(int i = 0; i <= str.length()-1; i++) {
-			if(Character.isDigit(str.charAt(i))) {
+		for (int i = 0; i <= str.length() - 1; i++) {
+			if (Character.isDigit(str.charAt(i))) {
 				digitStreak.append(str.charAt(i));
 			} else {
-				sum +=  Integer.valueOf(digitStreak.toString());
+				sum += Integer.valueOf(digitStreak.toString());
 				digitStreak = new StringBuilder(ZERO);
 			}
 		}
-		sum +=  Integer.valueOf(digitStreak.toString());
+		sum += Integer.valueOf(digitStreak.toString());
 		return sum;
 	}
 
@@ -196,15 +194,17 @@ public class StringThree {
 		final String CLEAN_IS = " is ";
 		final String NOT = " not";
 		int indexOf_IS = result.indexOf(CLEAN_IS, 0);
-		while(indexOf_IS != -1) {
+		while (indexOf_IS != -1) {
 			result.insert((indexOf_IS + 3), NOT);
-			indexOf_IS = result.indexOf(CLEAN_IS, (++indexOf_IS));	
-		} 
-		if( str.equals(CLEAN_IS.trim()) ||  (str.startsWith(CLEAN_IS.trim()) && !(Character.isLetter(result.toString().charAt(2)))) ){
+			indexOf_IS = result.indexOf(CLEAN_IS, (++indexOf_IS));
+		}
+		if (str.equals(CLEAN_IS.trim())
+				|| (str.startsWith(CLEAN_IS.trim()) && !(Character.isLetter(result.toString().charAt(2))))) {
 			result.insert(2, NOT);
 		}
-		if(str.endsWith(CLEAN_IS.trim()) && str.length() >= 3 && !(Character.isLetter(str.toString().charAt(str.length()-3))) ) {
-			result.insert(result.length(), NOT);	
+		if (str.endsWith(CLEAN_IS.trim()) && str.length() >= 3
+				&& !(Character.isLetter(str.toString().charAt(str.length() - 3)))) {
+			result.insert(result.length(), NOT);
 		}
 		return result.toString();
 	}
