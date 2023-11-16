@@ -67,7 +67,7 @@ public class AdvancedPlacementComputerScience {
     }
 
     public List wordsWithoutList(String[] words, int len) {
-        return Arrays.stream(words).filter(word -> word.length() != len).collect(Collectors.toCollection(ArrayList::new));
+        return Arrays.stream(words).filter(word -> word.length() != len).collect(Collectors.toList());
     }
 
     public boolean hasOne(int n) {
@@ -93,18 +93,131 @@ public class AdvancedPlacementComputerScience {
 
     public int[] copyEndy(int[] nums, int count) {
         IntPredicate isEndy = (n) -> (n >= 0 && n <= 10) || (n >= 90 && n <= 100);
-        ArrayList<Integer> result = Arrays.stream(nums).filter(isEndy).collect(Collectors.toCollection(ArrayList::new));
+        return Arrays.stream(nums).filter(isEndy).limit(count).toArray();
+    }
 
-        return nums;
+    public int matchUp(String[] a, String[] b) {
+        int matchCount = 0;
+        for(int i = 0; i < a.length; i++) {
+            if( (!a[i].equals("") && !b[i].equals("")) && (a[i].charAt(0) == b[i].charAt(0))) {
+                matchCount++;
+            }
+        }
+        return matchCount;
+    }
+
+    public int scoreUp(String[] key, String[] answers) {
+        int anExamScore = 0;
+        final String BLANK = "?";
+        for(int i = 0; i < key.length; i++) {
+            if(answers[i].equals(BLANK)) {
+                anExamScore += 0;
+            } else if( !key[i].equals(answers[i]) ) {
+                anExamScore -= 1;
+            } else {
+                anExamScore += 4;
+            }
+        }
+        return anExamScore;
+    }
+
+    public String[] wordsWithout(String[] words, String target) {
+        return Arrays.stream(words).filter(word -> !word.equals(target)).toArray(String[]::new);
+    }
+
+    public int scoresSpecial(int[] a, int[] b) {
+        Predicate<Integer> isSpecial = (n) -> n % 10 == 0;
+        Function<int[], Integer> figureOutGreatestSpecial = (arr) -> {
+            int greatestSpecial = 0;
+            for(int i : arr) {
+                if(isSpecial.test(i) && i > greatestSpecial) {
+                    greatestSpecial = i;
+                }
+            }
+            return greatestSpecial;
+        };
+        int aGreatestSpecial = figureOutGreatestSpecial.apply(a);
+        int bGreatestSpecial = figureOutGreatestSpecial.apply(b);
+        return aGreatestSpecial + bGreatestSpecial;
+    }
+
+    public int sumHeights(int[] heights, int start, int end) {
+        int sum = 0;
+        for(int i = start; i < end; i++) {
+            sum += Math.abs(heights[i] - heights[i + 1]);
+        }
+        return sum;
+    }
+
+    public int sumHeights2(int[] heights, int start, int end) {
+        int sum = 0;
+        for(int i = start; i < end; i++) {
+            sum += (heights[i] < heights[i + 1])? (heights[i + 1] - heights[i]) * 2 : Math.abs(heights[i] - heights[i + 1]);
+        }
+        return sum;
+    }
+
+    public int bigHeights(int[] heights, int start, int end) {
+        int bigSteps = 0;
+        for(int i = start; i < end; i++) {
+            if( (Math.abs(heights[i] - heights[i + 1])) >= 5) {
+                bigSteps++;
+            }
+        }
+        return bigSteps;
+    }
+
+    public int userCompare(String aName, int aId, String bName, int bId) {        
+        if(aName.equals(bName)) {
+            return Integer.compare(aId, bId);
+        } else if (aName.compareTo(bName) < 0){
+            return -1;
+        } else if (aName.compareTo(bName) > 1){
+            return 1;
+        }
+        return aName.compareTo(bName);
+    }
+
+    public String[] mergeTwo(String[] a, String[] b, int n) {
+        String[] mergedArray = new String[n];
+        int aCurrentIndex = 0; 
+        int bCurrentIndex = 0;
+        for(int i = 0; i < n; i++) {
+            if(a[aCurrentIndex].equals(b[bCurrentIndex])) {
+                mergedArray[i] = a[aCurrentIndex];
+                aCurrentIndex++;
+                bCurrentIndex++;
+            } else if (a[aCurrentIndex].codePointAt(0) < b[bCurrentIndex].codePointAt(0)) {
+                mergedArray[i] = a[aCurrentIndex];
+                aCurrentIndex++;
+            } else if (b[bCurrentIndex].codePointAt(0) < a[aCurrentIndex].codePointAt(0)) {
+                mergedArray[i] = b[bCurrentIndex];
+                bCurrentIndex++;
+            }
+        }
+        return mergedArray;
+    }
+
+    public int commonTwo(String[] a, String[] b) {
+        Set<String> aSet = Arrays.stream(a).collect(Collectors.toCollection(HashSet::new));
+        Set<String> bSet = Arrays.stream(b).collect(Collectors.toCollection(HashSet::new));
+        if(aSet.size() >= bSet.size()) {
+            aSet.retainAll(bSet);
+            return aSet.size();
+        } else {
+            bSet.retainAll(aSet);
+            return bSet.size();
+        }
     }
 
 
 
     public static void main(String[] args) {
 
-        int[] scores = {3, 4, 5, 1, 2, 3};
+        String[] a = Arrays.asList("a", "b", "c").toArray(new String[0]);
+        String[] b = Arrays.asList("a", "b", "c").toArray(new String[0]);
         AdvancedPlacementComputerScience apcs = new AdvancedPlacementComputerScience();
-        System.out.println(apcs.copyEvens(scores, 2));
-        
+        System.out.println(apcs.commonTwo(a, b));
+
     }
 }
